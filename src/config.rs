@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use std::{fs, io, path::Path};
 
-#[derive(Serialize, Deserialize,Debug)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct AppConfig {
     db_file_name: String,
     db_user: String,
@@ -45,5 +45,11 @@ pub fn load_or_init_config() -> Result<AppConfig, ConfigError> {
         let content = toml::to_string(&config).unwrap();
         fs::write(config_file, content)?;
         Ok(config)
+    }
+}
+
+impl AppConfig {
+    pub fn get_db_file_name(&self) -> &str {
+        &self.db_file_name
     }
 }
