@@ -1,10 +1,13 @@
 mod config;
+mod dbo;
+
 use crate::config::load_or_init_config;
 use duckdb::arrow::record_batch::RecordBatch;
 use duckdb::{params, Connection, Result};
 use tracing_subscriber::fmt;
 use tracing_subscriber::layer::SubscriberExt;
 use tracing_subscriber::util::SubscriberInitExt;
+use crate::dbo::init_db;
 
 fn main() {
     tracing_subscriber::registry().with(fmt::layer()).init();
@@ -26,6 +29,7 @@ fn main() {
     };
     tracing::info!("Loaded config: {:?}", config);
     let conn = Connection::open(config.get_db_file_name());
+    init_db(conn.expect("init failed"));
 }
 
 
