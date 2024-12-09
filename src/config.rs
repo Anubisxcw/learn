@@ -52,4 +52,13 @@ impl AppConfig {
     pub fn get_db_file_name(&self) -> &str {
         &self.db_file_name
     }
+    pub fn get_db_user(&self) -> &str {
+        &self.db_user
+    }
+    pub fn get_db_password(&self) -> &str {
+        &self.db_password
+    }
+    pub fn get_db_name(&self) -> &str {
+        &self.db_name
+    }
 }
